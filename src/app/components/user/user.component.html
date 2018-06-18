@@ -7,6 +7,7 @@
 </ul>
 
 <button (click)="toggleEdit()">Edit User</button>
+<button id="alert">Alert</button>
 
 <div *ngIf=isEdit>
   <h1>Edit User</h1>
@@ -53,6 +54,13 @@
 </ul>
 
 <h1>Posts</h1>
+  <form>
+    <input type="text" [(ngModel)]="editPost.id" name="id" class="form-control">
+    <input type="text" [(ngModel)]="editPost.title" name="title" class="form-control">
+    <textarea  [(ngModel)]="editPost.body" name="body" class="form-control"></textarea>
+  </form>
+
+  <br>
   <table class="table">
     <thead>
     <tr>

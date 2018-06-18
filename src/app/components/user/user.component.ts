@@ -1,89 +1,83 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from '../../services/data.service';
-import {Http} from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
-
+declare var $:any; //For Jquery
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+    selector: 'app-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-    name:string;
-    age:number;
-    email:string;
-    address:Address;
-    hobbies:string[];
-    hello:any;
-    isEdit:boolean = false;
-    addhb:string;
-    posts:Post[];
-
-
-  constructor(public http:Http) {
-      console.log('constructor ran..');
-  }
-
-  ngOnInit() {
-      console.log('ngOnInit ran...');
-      this.name = 'Farzad Rahman';
-      this.email = 'farzadrahman59@gmail.com';
-      this.age = 30;
-      this.address = {
-          street:'50 Main st',
-          city: 'Boston',
-          state:'MA'
-      }
-      this.hobbies = ['Write code', 'Watch movies', 'Listen to music'];
-      this.hello ='hello';
-
-
-      this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe(data => {
-          this.posts = data.json();
-          },
-          error =>{alert(error);},
-          );
+    name: string='Farzad Rahman';
+    age: number=30;
+    email: string='farzadrahman59@gmail.com';
+    address: any;
+    hobbies: string[];
+    isEdit = false;
+    addhb: string;
+    posts: any;
+    editPost: any;
 
 
 
-  }
+    constructor(public http: HttpClient) {
+        console.log('constructor ran..');
 
-  postEdit(id){
-      this.http.get('https://jsonplaceholder.typicode.com/posts/'+id).subscribe(data => {
-          console.log(data.json());
-
-
-      });
-
-  }
-
-  toggleEdit(){
-    this.isEdit=!this.isEdit;
     }
-    addHobby(){
+
+    ngOnInit() {
+
+        $( "#alert" ).click(function() {
+            alert( "Handler for .click() called." );
+        });
+
+        this.address = {
+            street: '50 Main st',
+            city: 'Boston',
+            state: 'MA'
+        };
+        this.editPost = {
+            id: 0,
+            title: '',
+            body: '',
+            userId: 0
+        };
+        this.hobbies = ['Write code', 'Watch movies', 'Listen to music'];
+        this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe(data => {
+                // console.log(data);
+                this.posts = data;
+            },
+            err => {
+                console.log("Error occured.");
+            }
+        );
+
+    }
+
+    postEdit(id) {
+        this.http.get('https://jsonplaceholder.typicode.com/posts/' + id).subscribe(data => {
+            this.editPost = data;
+
+        });
+
+    }
+
+    toggleEdit() {
+        this.isEdit = !this.isEdit;
+    }
+    addHobby() {
         // console.log(hobby);
         this.hobbies.unshift(this.addhb);
-        this.addhb="";
+        this.addhb = '';
         return true;
     }
 
-    deleteHobby(i){
+    deleteHobby(i) {
         this.hobbies.splice(i, 1);
     }
 
 
-  interface Address{
-    street:string,
-    city:string,
-    state:string
-  }
 
-interface Post{
-    id: number,
-    title:string,
-    body:string,
-    userId:number
-}
 
 
 
