@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import  { Constants }  from '../../constants';
+import {TokenService} from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
         password: null
     };
     error:null;
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,private token:TokenService) {
     // For Constant Variables
       /*let url = Constants.API_URL;
       console.log(Constants.API_URL);*/
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
     console.log('Submit Clicked');
       this.http.post(Constants.API_URL+'login',this.form).subscribe(data => {
           console.log(data);
+          this.handleResponse(data);
           },
           error => {
             // console.log(error);
@@ -34,6 +36,28 @@ export class LoginComponent implements OnInit {
             console.log(this.error);
           }
           );
+    }
+
+    whoAmI(){
+
+        const token=this.token.get();
+
+        this.http.post(Constants.API_URL+'me?token='+token,null).subscribe(data => {
+                console.log(data);
+
+            },
+            error => {
+                // console.log(error);
+                this.error=error.error.error;
+                console.log(this.error);
+            }
+        );
+
+    }
+
+
+    handleResponse(data) {
+        this.token.handle(data.access_token);
     }
 
 }
