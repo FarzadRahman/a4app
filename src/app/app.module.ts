@@ -12,12 +12,18 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import {AfterLoginService} from './services/after-login.service';
+import {GuestService} from './services/guest.service';
 
 const appRoutes: Routes = [
-    {path:'', component:UserComponent},
-    {path:'products', component:ProductComponent},
-    {path:'login', component:LoginComponent},
-    {path:'profile', component:ProductComponent},
+    {path: '', component:UserComponent},
+    {path: 'products', component: ProductComponent,
+        canActivate: [AfterLoginService]
+    },
+    {path:'login', component:LoginComponent,
+        canActivate: [GuestService]
+    },
+    {path:'profile', component:ProfileComponent},
     {path:'about', component:AboutComponent}
 ];
 @NgModule({

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import  { Constants }  from '../../constants';
 import {TokenService} from '../../services/token.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,11 @@ export class LoginComponent implements OnInit {
         password: null
     };
     error:null;
-  constructor(public http: HttpClient,private token:TokenService) {
+  constructor(public http: HttpClient,
+              private token:TokenService,
+              private router:Router
+
+  ) {
     // For Constant Variables
       /*let url = Constants.API_URL;
       console.log(Constants.API_URL);*/
@@ -58,6 +63,8 @@ export class LoginComponent implements OnInit {
 
     handleResponse(data) {
         this.token.handle(data.access_token);
+        // this.router.navigate('products');
+        this.router.navigateByUrl('products');
     }
 
 }
