@@ -28,4 +28,18 @@
     </a>
   </div>
 
+
+
+    <form #loginForm=ngForm>
+        <input class="form-control" type="file" name="image" (change)="onFileSelected($event)" multiple>
+        <button class="btn btn-success" (click)="onSubmit()">Upload</button>
+
+
+    </form>
+
+
+
+
+
+
 </div>

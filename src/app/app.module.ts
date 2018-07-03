@@ -14,6 +14,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {AfterLoginService} from './services/after-login.service';
 import {GuestService} from './services/guest.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const appRoutes: Routes = [
     {path: '', component:UserComponent},
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
     BrowserModule,
       FormsModule,
       HttpClientModule,
+      NgxSpinnerModule,
       RouterModule.forRoot(appRoutes)
   ],
   providers: [DataService],
