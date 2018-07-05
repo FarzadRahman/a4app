@@ -30,9 +30,15 @@
 
 
 
-    <form #loginForm=ngForm>
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
         <input class="form-control" type="file" name="image" (change)="onFileSelected($event)" multiple>
-        <button class="btn btn-success" (click)="onSubmit()">Upload</button>
+
+        <div class="form-group">
+          <input type="text" class="form-control" name="firstName"  formControlName="firstName">
+        </div>
+
+
+        <button class="btn btn-success" type="submit" [disabled]="!form.valid">Upload</button>
 
 
     </form>
