@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Constants} from '../../constants';
 import { NgxSpinnerService } from 'ngx-spinner';
-<<<<<<< HEAD
 import {ActivatedRoute} from "@angular/router";
-=======
 import {FormGroup, FormControl, Validators} from '@angular/forms';
->>>>>>> bb7619e598b8e03e240778f4e52288f102c18cff
 
 
 @Component({
@@ -16,12 +13,12 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
     selectedFile:File[];
-<<<<<<< HEAD
     id: number;
-=======
     form:any;
     name:string;
->>>>>>> bb7619e598b8e03e240778f4e52288f102c18cff
+    submitted = false;
+    error:any;
+    
   carouselImage:any= [
       {alt: 'Los Angeles', image: 'https://www.nathab.com/uploaded-files/carousels/TRIPS/Tanzania-Migration-Photo/Carousel-Tanzania-Migration-Photo-Safari-100.jpg'},
       {alt: 'Chicago', image: 'http://wowslider.com/sliders/demo-93/data1/images/landscape.jpg'},
@@ -32,7 +29,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
       this.form=new FormGroup({
           firstName:new FormControl('',  Validators.required),
-          lastName:new FormControl(''),
+          lastName:new FormControl('',[
+            Validators.required,
+            Validators.minLength(4)
+          ]),
           image:new FormControl('')
       });
       // this.spinner.show();
@@ -43,6 +43,8 @@ export class ProfileComponent implements OnInit {
       // }, 5000);
 
   }
+    // convenience getter for easy access to form fields
+    get f() { return this.form.controls; }
 
     onFileSelected(event) {
 
@@ -53,6 +55,11 @@ export class ProfileComponent implements OnInit {
     }
 
     onSubmit(value) {
+        this.submitted=true;
+      
+        if (!this.form.valid) {
+            return;
+        }
       console.log(value);
 
       this.spinner.show();
@@ -77,7 +84,8 @@ export class ProfileComponent implements OnInit {
 
             },
             error => {
-                console.log(error);
+                console.log(error.message);
+                this.error=error.message;
                 // this.error=error.error.error;
                 // console.log(this.error);
                 this.spinner.hide();
