@@ -1,6 +1,6 @@
 <div class="container" style="text-align: center">
 
-
+  <!--carousel Start-->
   <div id="demo" class="carousel slide" data-ride="carousel" >
 
     <!-- Indicators -->
@@ -12,7 +12,7 @@
 
     <!-- The slideshow -->
     <div class="carousel-inner">
-
+      <!--Content Goes Here-->
       <div *ngFor="let image of carouselImage; let k = index" [ngClass]="k == 0 ? 'carousel-item active' : 'carousel-item'">
         <img [src]="image.image" [alt]="image.alt">
       </div>
@@ -28,7 +28,8 @@
     </a>
   </div>
 
-
+  <!--carousel End-->
+<br><br>
 
     <form #loginForm=ngForm>
         <input class="form-control" type="file" name="image" (change)="onFileSelected($event)" multiple>

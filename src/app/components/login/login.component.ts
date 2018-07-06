@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   }
 
+
   ngOnInit() {
   }
 
@@ -52,8 +53,7 @@ export class LoginComponent implements OnInit {
 
             },
             error => {
-                // console.log(error);
-                this.error=error.error.error;
+                this.error=error.error.message;
                 console.log(this.error);
             }
         );

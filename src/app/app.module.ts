@@ -24,6 +24,7 @@ const appRoutes: Routes = [
     {path:'login', component:LoginComponent,
         canActivate: [GuestService]
     },
+
     {path:'profile', component:ProfileComponent},
     {path:'about', component:AboutComponent}
 ];

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Constants} from '../../constants';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -11,12 +12,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class ProfileComponent implements OnInit {
     selectedFile:File[];
+    id: number;
   carouselImage:any= [
       {alt: 'Los Angeles', image: 'https://www.nathab.com/uploaded-files/carousels/TRIPS/Tanzania-Migration-Photo/Carousel-Tanzania-Migration-Photo-Safari-100.jpg'},
       {alt: 'Chicago', image: 'http://wowslider.com/sliders/demo-93/data1/images/landscape.jpg'},
       {alt: 'New York', image: 'http://cssslider.com/sliders/demo-28/data1/images/scooter593155_1280.jpg'},
   ];
-  constructor(public http: HttpClient,private spinner: NgxSpinnerService) { }
+  constructor(public http: HttpClient,private spinner: NgxSpinnerService,private route: ActivatedRoute) { }
 
   ngOnInit() {
       // this.spinner.show();
@@ -25,6 +27,7 @@ export class ProfileComponent implements OnInit {
       //     /** spinner ends after 5 seconds */
       //     this.spinner.hide();
       // }, 5000);
+
   }
 
     onFileSelected(event) {
