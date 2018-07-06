@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Constants} from '../../constants';
 import { NgxSpinnerService } from 'ngx-spinner';
+<<<<<<< HEAD
 import {ActivatedRoute} from "@angular/router";
+=======
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+>>>>>>> bb7619e598b8e03e240778f4e52288f102c18cff
 
 
 @Component({
@@ -12,7 +16,12 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProfileComponent implements OnInit {
     selectedFile:File[];
+<<<<<<< HEAD
     id: number;
+=======
+    form:any;
+    name:string;
+>>>>>>> bb7619e598b8e03e240778f4e52288f102c18cff
   carouselImage:any= [
       {alt: 'Los Angeles', image: 'https://www.nathab.com/uploaded-files/carousels/TRIPS/Tanzania-Migration-Photo/Carousel-Tanzania-Migration-Photo-Safari-100.jpg'},
       {alt: 'Chicago', image: 'http://wowslider.com/sliders/demo-93/data1/images/landscape.jpg'},
@@ -21,6 +30,11 @@ export class ProfileComponent implements OnInit {
   constructor(public http: HttpClient,private spinner: NgxSpinnerService,private route: ActivatedRoute) { }
 
   ngOnInit() {
+      this.form=new FormGroup({
+          firstName:new FormControl('',  Validators.required),
+          lastName:new FormControl(''),
+          image:new FormControl('')
+      });
       // this.spinner.show();
       //
       // setTimeout(() => {
@@ -34,17 +48,29 @@ export class ProfileComponent implements OnInit {
 
       this.selectedFile = event.target.files;
       console.log(this.selectedFile);
+      this.form.image = this.selectedFile;
 
     }
 
-    onSubmit() {
-        this.spinner.show();
-      const fd=new FormData();
-        var i:number;
+    onSubmit(value) {
+      console.log(value);
 
-      for (i = 0 ; i < this.selectedFile.length; i++) {
-          fd.append('image[]',this.selectedFile[i],this.selectedFile[i].name);
+      this.spinner.show();
+      const fd = new FormData();
+
+      for ( var key in value ) {
+            fd.append(key, value[key]);
+        }
+
+
+        if (this.selectedFile) {
+          var i: number;
+          for (i = 0 ; i < this.selectedFile.length; i++) {
+              fd.append('image[]', this.selectedFile[i], this.selectedFile[i].name);
+          }
       }
+
+
       this.http.post(Constants.API_URL + 'upload', fd).subscribe(data => {
               console.log(data);
               this.spinner.hide();
