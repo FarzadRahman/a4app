@@ -30,7 +30,8 @@
 
   <!--carousel End-->
 <br><br>
-<div class="alert alert-danger" *ngIf="error">
+<div class="alert alert-danger alert-dismissible" *ngIf="error">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Sorry!</strong> {{error}}
   </div>
 
